@@ -737,6 +737,23 @@ class VulnscanManager(object):
         return self.__manager.get_tasks_progress(task_id)
 
     #----------------------------------------------------------------------
+    def get_status(self, task_id):
+        """
+        Get the status of a scan.
+
+        :param task_id: Scan ID.
+        :type task_id: str
+
+        :return: Status
+        :rtype: float
+        """
+        if not isinstance(task_id, basestring):
+            raise TypeError("Expected string, got %r instead" % type(task_id))
+
+        return self.__manager.get_task_status(task_id)
+
+
+    #----------------------------------------------------------------------
     def stop_audit(self, task_id):
         """
         Stops specified scan ID in the OpenVAS server.
