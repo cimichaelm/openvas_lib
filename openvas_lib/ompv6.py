@@ -164,6 +164,7 @@ class OMPv6(OMP):
             <name>%s</name>
             <hosts>%s</hosts>
             <comment>%s</comment>
+            <alive_tests>ICMP & TCP Service Ping</alive_tests>
         </create_target>""" % (name, m_targets, comment)
 
         return self._manager.make_xml_request(request, xml_result=True).get("id")
