@@ -778,31 +778,31 @@ class VulnscanManager(object):
         return self.__manager.get_configs_ids()
 
     #----------------------------------------------------------------------
-    @property
     def get_all_scans(self):
         """
         :return: All scans.
         :rtype: {scan_name: ID}
         """
-        return self.__manager.get_tasks_ids()
+        m_status=self.__manager.get_tasks_ids()
+        return m_status
 
     #----------------------------------------------------------------------
-    @property
     def get_running_scans(self):
         """
         :return: All running scans.
         :rtype: {scan_name: ID}
         """
-        return self.__manager.get_tasks_ids_by_status("Running")
+        m_status=self.__manager.get_tasks_ids_by_status("Running")
+        return m_status
 
     #----------------------------------------------------------------------
-    @property
     def get_finished_scans(self):
         """
         :return: All finished scans.
         :rtype: {scan_name: ID}
         """
-        return self.__manager.get_tasks_ids_by_status("Done")
+        m_status=self.__manager.get_tasks_ids_by_status("Done")
+        return m_status
 
     #----------------------------------------------------------------------
     @set_interval(10.0)
