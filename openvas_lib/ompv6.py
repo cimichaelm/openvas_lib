@@ -137,7 +137,7 @@ class OMPv6(OMP):
         return self._manager.make_xml_request(request, xml_result=True).get("id")
 
     #----------------------------------------------------------------------
-    def create_target(self, name, hosts, comment=""):
+    def create_target(self, name, hosts, comment="", alivetest=""):
         """
         Creates a target in OpenVAS.
 
@@ -160,12 +160,13 @@ class OMPv6(OMP):
         elif isinstance(hosts, Iterable):
             m_targets = ",".join(hosts)
 
+        alivetest = "ICMP & TCP Service Ping"
         request = """<create_target>
             <name>%s</name>
             <hosts>%s</hosts>
             <comment>%s</comment>
-            <alive_tests>ICMP & TCP Service Ping</alive_tests>
-        </create_target>""" % (name, m_targets, comment)
+            <alive_tests>%s</alive_tests>
+        </create_target>""" % (name, m_targets, comment, alivetest)
 
         return self._manager.make_xml_request(request, xml_result=True).get("id")
 

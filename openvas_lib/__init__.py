@@ -569,6 +569,7 @@ class VulnscanManager(object):
         profile = kwargs.get("profile", "Full and fast")
         call_back_end = kwargs.get("callback_end", None)
         call_back_progress = kwargs.get("callback_progress", None)
+        alivetest = kwargs.get("alivetest", "")
         if not (isinstance(target, basestring) or isinstance(target, Iterable)):
             raise TypeError("Expected basestring or iterable, got %r instead" % type(target))
         if not isinstance(profile, basestring):
@@ -581,7 +582,8 @@ class VulnscanManager(object):
         # Create the target
         try:
             m_target_id = self.__manager.create_target(m_target_name, target,
-                                                       "Temporal target from OpenVAS Lib")
+                                                       "Temporal target from OpenVAS Lib",
+                                                       alivetest)
         except ServerError, e:
             raise VulnscanTargetError("The target already exits on the server. Error: %s" % e.message)
 
