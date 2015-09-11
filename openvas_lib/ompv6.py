@@ -160,7 +160,6 @@ class OMPv6(OMP):
         elif isinstance(hosts, Iterable):
             m_targets = ",".join(hosts)
 
-        alivetest = "ICMP & TCP Service Ping"
         request = """<create_target>
             <name>%s</name>
             <hosts>%s</hosts>

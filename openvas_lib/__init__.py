@@ -459,6 +459,15 @@ class VulnscanManager(object):
         :raises: VulnscanServerError, VulnscanAuthFail, VulnscanVersionError
         """
 
+
+        #
+        # underscore not interpreted as regular character by TeX
+        #
+#        self.target_prefix = "openvas_lib_target"
+#        self.task_prefix = "openvas_lib_scan"
+        self.target_prefix = "targ"
+        self.task_prefix = "scan"
+
         if not isinstance(host, basestring):
             raise TypeError("Expected string, got %r instead" % type(host))
         if not isinstance(user, basestring):
@@ -576,8 +585,10 @@ class VulnscanManager(object):
             raise TypeError("Expected string, got %r instead" % type(profile))
 
         # Generate the random names used
-        m_target_name = "openvas_lib_target_%s_%s" % (target, generate_random_string(20))
-        m_job_name = "openvas_lib_scan_%s_%s" % (target, generate_random_string(20))
+        m_target_name = "%s%s%s" % (self.target_prefix,
+                                      target, generate_timestamp_string())
+        m_job_name = "%s%s%s" % (self.task_prefix,
+                                   target, generate_timestamp_string())
 
         # Create the target
         try:

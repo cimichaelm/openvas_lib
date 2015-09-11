@@ -540,7 +540,7 @@ class OMP(object):
         raise NotImplementedError()
 
     #----------------------------------------------------------------------
-    def create_target(self, name, hosts, comment=""):
+    def create_target(self, name, hosts, comment="", alivetest=""):
         """
         Creates a target in OpenVAS.
 

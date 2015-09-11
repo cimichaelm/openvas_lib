@@ -27,6 +27,8 @@ from random import choice
 from threading import Event, Timer
 from string import ascii_letters, digits
 
+import time
+from datetime import date
 
 #------------------------------------------------------------------------------
 #
@@ -115,3 +117,14 @@ def generate_random_string(length=30):
     m_available_chars = ascii_letters + digits
 
     return "".join(choice(m_available_chars) for _ in xrange(length))
+
+#----------------------------------------------------------------------
+def generate_timestamp_string():
+    """
+    Generates a timestamp string.
+
+    """
+
+    timestamp = date.strftime("%Y%m%d%H%M%S")
+
+    return timestamp
