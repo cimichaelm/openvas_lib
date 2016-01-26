@@ -733,6 +733,14 @@ class VulnscanManager(object):
 
         return self.__manager.get_report_pdf(report_id)
 
+    def get_report_custom(self, report_id, format_name="", format_id=""):
+
+        if not isinstance(report_id, basestring):
+            raise TypeError("Expected string, got %r instead" % type(report_id))
+
+        return self.__manager.get_report_custom(report_id, format_name, format_id)
+        #----------------------------------------------------------------------
+
     #----------------------------------------------------------------------
     def get_progress(self, task_id):
         """
