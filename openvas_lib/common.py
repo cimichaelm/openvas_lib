@@ -487,6 +487,11 @@ class OMP(object):
 
         self._manager = omp_manager
 
+        self.report_id = {'pdf': 'c402cc3e-b531-11e1-9163-406186ea4fc5',
+                          'spogpdf': '6aa7559c-58d0-11e5-acb3-6259bd78a88d',
+                          'html': '6c248850-1f62-11e1-b082-406186ea4fc5'
+                          }
+
     #----------------------------------------------------------------------
     #
     # PUBLIC METHODS
