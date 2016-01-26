@@ -426,7 +426,7 @@ class OMPv6(OMP):
             raise TypeError("Expected string, got %r instead" % type(report_id))
 
         try:
-            m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="c402cc3e-b531-11e1-9163-406186ea4fc5"/>' % report_id, xml_result=True)
+            m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="%s"/>' % (report_id, self.report_id['pdf']), xml_result=True)
         except ServerError, e:
             raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
@@ -437,7 +437,7 @@ class OMPv6(OMP):
             raise TypeError("Expected string, got %r instead" % type(report_id))
 
         try:
-            m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="6c248850-1f62-11e1-b082-406186ea4fc5"/>' % report_id, xml_result=True)
+            m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="%s"/>' % (report_id, self.report_id['html']), xml_result=True)
         except ServerError, e:
             raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
@@ -452,6 +452,21 @@ class OMPv6(OMP):
         except ServerError, e:
             raise VulnscanServerError("Can't get the xml for the report%s. Error: %s" % (report_id, e.message))
 
+        return m_response
+
+    #----------------------------------------------------------------------
+    def get_report_custom(self, report_id, format_name="", format_id=""):
+
+        if format_name:
+            format_id = self.report_id[format_name]
+
+        if not isinstance(report_id,basestring):
+            raise TypeError("Expected string, got %r instead" % type(report_id))
+
+        try:
+            m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="%s"/>' % (report_id, format_id), xml_result=True)
+        except ServerError, e:
+            raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
 
     #----------------------------------------------------------------------
