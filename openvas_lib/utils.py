@@ -28,7 +28,7 @@ from threading import Event, Timer
 from string import ascii_letters, digits
 
 import time
-from datetime import date
+from datetime import date, datetime
 
 #------------------------------------------------------------------------------
 #
@@ -125,6 +125,11 @@ def generate_timestamp_string():
 
     """
 
-    timestamp = date.strftime("%Y%m%d%H%M%S")
-
+    t = datetime.now()
+    timestamp = t.strftime("%Y%m%d%H%M%S")
     return timestamp
+
+
+if __name__ == '__main__':
+
+    print generate_timestamp_string()
