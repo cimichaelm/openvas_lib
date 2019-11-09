@@ -431,6 +431,16 @@ class OMPv6(OMP):
             raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
 
+    def get_report_filter_pdf(self, report_id, filter=""):
+        if not isinstance(report_id, basestring):
+            raise TypeError("Expected string, got %r instead" % type(report_id))
+
+        try:
+            m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="%s" %s/>' % (report_id, self.report_id['pdf'],filter), xml_result=True)
+        except ServerError, e:
+            raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
+        return m_response
+
     #----------------------------------------------------------------------
     def get_report_html(self, report_id):
         if not isinstance(report_id,basestring):
@@ -449,6 +459,17 @@ class OMPv6(OMP):
 
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" />' % report_id, xml_result=True)
+        except ServerError, e:
+            raise VulnscanServerError("Can't get the xml for the report%s. Error: %s" % (report_id, e.message))
+
+        return m_response
+
+    def get_report_filter_xml(self, report_id, filter=""):
+        if not isinstance(report_id, basestring):
+            raise TypeError("Expected string, got %r instead" % type(report_id))
+
+        try:
+            m_response = self._manager.make_xml_request('<get_reports report_id="%s" %s/>' % (report_id, filter), xml_result=True)
         except ServerError, e:
             raise VulnscanServerError("Can't get the xml for the report%s. Error: %s" % (report_id, e.message))
 
