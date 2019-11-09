@@ -418,7 +418,21 @@ class OMPv6(OMP):
     #----------------------------------------------------------------------
     def get_report_id(self, scan_id):
         m_response = self.get_tasks_detail(scan_id)
-        return m_response.find('task').find('last_report')[0].get("id")
+        reportid = None
+        
+        task = m_response.find('task')
+
+#        m_response.find('task').find('last_report')[0].get("id")
+
+#       check intermediate results to handle errors
+        if task:
+            lastreport = task.find('last_report')
+            if lastreport:
+                report = lastreport[0]
+                if report:
+                    reportid = report.get("id")
+                
+        return reportid
 
     #----------------------------------------------------------------------
     def get_report_pdf(self, report_id):
