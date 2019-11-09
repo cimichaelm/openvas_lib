@@ -730,7 +730,7 @@ class VulnscanManager(object):
         if not isinstance(report_id, basestring):
             raise TypeError("Expected string, got %r instead" % type(report_id))
 
-        return self.__manager.get_report_xml(report_id, filter)
+        return self.__manager.get_report_filter_xml(report_id, filter)
         #----------------------------------------------------------------------
 
     #----------------------------------------------------------------------
@@ -754,6 +754,14 @@ class VulnscanManager(object):
             raise TypeError("Expected string, got %r instead" % type(report_id))
 
         return self.__manager.get_report_custom(report_id, format_name, format_id)
+        #----------------------------------------------------------------------
+
+    def get_report_filter_custom(self, report_id, format_name="", format_id="", filter=""):
+
+        if not isinstance(report_id, basestring):
+            raise TypeError("Expected string, got %r instead" % type(report_id))
+
+        return self.__manager.get_report_filter_custom(report_id, format_name, format_id, filter)
         #----------------------------------------------------------------------
 
     #----------------------------------------------------------------------
