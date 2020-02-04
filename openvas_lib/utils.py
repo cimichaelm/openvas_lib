@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
 
 """
 Utils functions, like timer and random string generator.
@@ -23,7 +24,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """
 
-from __future__ import print_function
 
 from random import choice
 from threading import Event, Timer
