@@ -227,7 +227,7 @@ def report_parser(path_or_file, ignore_log_info=True):
                         l_partial_result.port = OpenVASPort(l_service,
                                                             l_number,
                                                             l_proto)
-                    except (TypeError, ValueError), e:
+                    except (TypeError, ValueError) as e:
                         logging.warning("%s is not a valid port for %s vulnerability. skipping vulnerability..."
                                         % (l_val.text,
                                            l_vid))
