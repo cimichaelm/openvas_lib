@@ -29,6 +29,7 @@ from string import ascii_letters, digits
 
 import time
 from datetime import date, datetime
+from __future__ import print_function
 
 #------------------------------------------------------------------------------
 #
@@ -132,4 +133,4 @@ def generate_timestamp_string():
 
 if __name__ == '__main__':
 
-    print generate_timestamp_string()
+    print(generate_timestamp_string())
