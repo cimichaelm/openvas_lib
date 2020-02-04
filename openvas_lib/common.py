@@ -183,11 +183,11 @@ class ConnectionManager(object):
         sock.settimeout(timeout)
         try:
             sock.connect((self.__host, int(self.__port)))
-        except socket.error, e:
+        except socket.error as e:
             raise ServerError(str(e))
         try:
             self.socket = ssl.wrap_socket(sock, ssl_version=ssl.PROTOCOL_TLSv1)
-        except Exception, e:
+        except Exception as e:
             raise ServerError(str(e))
 
         # Authenticate to the server
@@ -300,7 +300,7 @@ class ConnectionManager(object):
                     except Exception:
                         continue
                     break
-            except socket.error, e:
+            except socket.error as e:
                 raise ServerError("Can't receive info from the server: %s" % e)
 
             # if tree is None:

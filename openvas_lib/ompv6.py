@@ -411,7 +411,7 @@ class OMPv6(OMP):
 
         try:
             m_response = self._manager.make_xml_request('<get_tasks task_id="%s" details="1"/>' % scan_id, xml_result=True)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanServerError("Can't get the detail for the task %s. Error: %s" % (scan_id, e.message))
         return m_response
 
@@ -441,7 +441,7 @@ class OMPv6(OMP):
 
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="%s"/>' % (report_id, self.report_id['pdf']), xml_result=True)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
 
@@ -451,7 +451,7 @@ class OMPv6(OMP):
 
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="%s" %s/>' % (report_id, self.report_id['pdf'],filter), xml_result=True)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
 
@@ -462,7 +462,7 @@ class OMPv6(OMP):
 
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="%s"/>' % (report_id, self.report_id['html']), xml_result=True)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
 
@@ -473,7 +473,7 @@ class OMPv6(OMP):
 
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" />' % report_id, xml_result=True)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanServerError("Can't get the xml for the report%s. Error: %s" % (report_id, e.message))
 
         return m_response
@@ -484,7 +484,7 @@ class OMPv6(OMP):
 
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" %s/>' % (report_id, filter), xml_result=True)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanServerError("Can't get the xml for the report%s. Error: %s" % (report_id, e.message))
 
         return m_response
@@ -500,7 +500,7 @@ class OMPv6(OMP):
 
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="%s"/>' % (report_id, format_id), xml_result=True)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
 
@@ -515,7 +515,7 @@ class OMPv6(OMP):
 
         try:
             m_response = self._manager.make_xml_request('<get_reports report_id="%s" format_id="%s" %s/>' % (report_id, format_id, filter), xml_result=True)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanServerError("Can't get the pdf for the report %s. Error: %s" % (report_id, e.message))
         return m_response
 
