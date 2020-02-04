@@ -156,7 +156,7 @@ def report_parser(path_or_file, ignore_log_info=True):
         try:
             l_vid = l_results.get("id")
             l_partial_result.id = l_vid
-        except TypeError, e:
+        except TypeError as e:
             logging.warning("%s is not a valid vulnerability ID, skipping vulnerability..." % l_vid)
             logging.debug(e)
             continue
@@ -192,7 +192,7 @@ def report_parser(path_or_file, ignore_log_info=True):
                 # All text vars can be processes both.
                 try:
                     setattr(l_partial_result, l_tag, l_val.text)
-                except (TypeError, ValueError), e:
+                except (TypeError, ValueError) as e:
                     logging.warning(
                         "%s is not a valid value for %s property in %s vulnerability. skipping vulnerability..."
                         % (l_val.text,
@@ -204,7 +204,7 @@ def report_parser(path_or_file, ignore_log_info=True):
             elif l_tag == "description":
                 try:
                     setattr(l_partial_result, "raw_description", l_val.text)
-                except TypeError, e:
+                except TypeError as e:
                     logging.warning("%s is not a valid description for %s vulnerability. skipping vulnerability..."
                                     % (l_val.text,
                                        l_vid))
@@ -242,7 +242,7 @@ def report_parser(path_or_file, ignore_log_info=True):
 
                         try:
                             l_partial_result.port = OpenVASPort(l_service, 0, l_proto)
-                        except (TypeError, ValueError), e:
+                        except (TypeError, ValueError) as e:
                             logging.warning("%s is not a valid port for %s vulnerability. skipping vulnerability..."
                                             % (l_val.text,
                                                l_vid))
@@ -258,7 +258,7 @@ def report_parser(path_or_file, ignore_log_info=True):
                 l_nvt_object = OpenVASNVT()
                 try:
                     l_nvt_object.oid = l_val.attrib['oid']
-                except TypeError, e:
+                except TypeError as e:
                     logging.warning("%s is not a valid NVT oid for %s vulnerability. skipping vulnerability..."
                                     % (l_val.attrib['oid'],
                                        l_vid))
@@ -281,7 +281,7 @@ def report_parser(path_or_file, ignore_log_info=True):
                             if l_nvt.text.startswith("NO"):
                                 try:
                                     setattr(l_nvt_object, l_nvt_tag, "")
-                                except (TypeError, ValueError), e:
+                                except (TypeError, ValueError) as e:
                                     logging.warning(
                                         "Empty value is not a valid NVT value for %s property in %s vulnerability. skipping vulnerability..."
                                         % (l_nvt_tag,
@@ -298,7 +298,7 @@ def report_parser(path_or_file, ignore_log_info=True):
                                     l_nvt_text = getattr(l_nvt, "text", "")
                                     try:
                                         setattr(l_nvt_object, l_nvt_tag, l_nvt_text.split(","))
-                                    except (TypeError, ValueError), e:
+                                    except (TypeError, ValueError) as e:
                                         logging.warning(
                                             "%s value is not a valid NVT value for %s property in %s vulnerability. skipping vulnerability..."
                                             % (l_nvt_text,
@@ -311,7 +311,7 @@ def report_parser(path_or_file, ignore_log_info=True):
                                     l_nvt_text = getattr(l_nvt, "text", "")
                                     try:
                                         setattr(l_nvt_object, l_nvt_tag, l_nvt_text)
-                                    except (TypeError, ValueError), e:
+                                    except (TypeError, ValueError) as e:
                                         logging.warning(
                                             "%s value is not a valid NVT value for %s property in %s vulnerability. skipping vulnerability..."
                                             % (l_nvt_text,
@@ -324,7 +324,7 @@ def report_parser(path_or_file, ignore_log_info=True):
                         else:
                             try:
                                 setattr(l_nvt_object, l_nvt_tag, "")
-                            except (TypeError, ValueError), e:
+                            except (TypeError, ValueError) as e:
                                 logging.warning(
                                     "Empty value is not a valid NVT value for %s property in %s vulnerability. skipping vulnerability..."
                                     % (l_nvt_tag,
@@ -343,7 +343,7 @@ def report_parser(path_or_file, ignore_log_info=True):
                 # Add to the NVT Object
                 try:
                     l_partial_result.nvt = l_nvt_object
-                except (TypeError, ValueError), e:
+                except (TypeError, ValueError) as e:
                     logging.warning(
                         "NVT oid %s is not a valid NVT value for %s vulnerability. skipping vulnerability..."
                         % (l_nvt_object.oid,
@@ -493,7 +493,7 @@ class VulnscanManager(object):
         # Create the manager
         try:
             self.__manager = get_connector(host, user, password, port, m_time_out)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanServerError("Error while connecting to the server: %s" % e.message)
         except AuthFailedError:
             raise VulnscanAuthFail("Error while trying to authenticate into the server.")
@@ -595,14 +595,14 @@ class VulnscanManager(object):
             m_target_id = self.__manager.create_target(m_target_name, target,
                                                        "Temporal target from OpenVAS Lib",
                                                        alivetest)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanTargetError("The target already exits on the server. Error: %s" % e.message)
 
         # Get the profile ID by their name
         try:
             tmp = self.__manager.get_configs_ids(profile)
             m_profile_id = tmp[profile]
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanProfileError("The profile select not exits int the server. Error: %s" % e.message)
         except KeyError:
             raise VulnscanProfileError("The profile select not exits int the server")
@@ -611,13 +611,13 @@ class VulnscanManager(object):
         try:
             m_task_id = self.__manager.create_task(m_job_name, m_target_id, config=m_profile_id,
                                                    comment="scan from OpenVAS lib")
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanScanError("The target selected doesnn't exist in the server. Error: %s" % e.message)
 
         # Start the scan
         try:
             self.__manager.start_task(m_task_id)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanScanError("Unknown error while try to start the task '%s'. Error: %s" % (m_task_id, e.message))
 
         # Callback is set?
@@ -659,7 +659,7 @@ class VulnscanManager(object):
         """
         try:
             self.__manager.delete_task(task_id)
-        except AuditNotRunningError, e:
+        except AuditNotRunningError as e:
             raise VulnscanAuditNotFoundError(e)
 
     #----------------------------------------------------------------------
@@ -694,7 +694,7 @@ class VulnscanManager(object):
 
         try:
             m_response = self.__manager.get_results(task_id)
-        except ServerError, e:
+        except ServerError as e:
             raise VulnscanServerError("Can't get the results for the task %s. Error: %s" % (task_id, e.message))
 
         return report_parser(m_response)
@@ -809,7 +809,7 @@ class VulnscanManager(object):
         """
         try:
             self.__manager.stop_task(self.task_id)
-        except AuditNotRunningError, e:
+        except AuditNotRunningError as e:
             raise VulnscanAuditNotFoundError(e)
 
     #----------------------------------------------------------------------
@@ -873,7 +873,7 @@ class VulnscanManager(object):
                 # Reset error counter
                 self.__error_counter = 0
 
-        except (ClientError, ServerError,Exception), e:
+        except (ClientError, ServerError,Exception) as e:
             self.__error_counter += 1
 
             # Checks for error number
@@ -892,6 +892,6 @@ class VulnscanManager(object):
 
                 func_status(1.0 if t == 0.0 else t)
 
-            except (ClientError, ServerError,Exception), e:
+            except (ClientError, ServerError,Exception) as e:
 
                 func_status(self.__old_progress)
